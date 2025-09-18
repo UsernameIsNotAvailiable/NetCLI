@@ -1,0 +1,7 @@
+Inspired by 'nmcli' for linux.
+
+Folders are structured based on contexts.
+ex: wifi, device, etc..
+
+Each context will contain a file for
+each command.
