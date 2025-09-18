@@ -15,7 +15,7 @@
 #include <contexts/radio/init.h>
 
 #define OPT_NONE 0
-#define OPT_BUILD 1
+#define OPT_VERSION 1
 #define OPT_HELP 2
 #define OPT_DEBUG 3
 
@@ -31,7 +31,7 @@
 #define _CONTEXT _OPT
 
 int get_option(const char *opt){
-    _OPT("--build", OPT_BUILD);
+    _OPT("--version", OPT_VERSION);
     _OPT("--help",  OPT_HELP);
     _OPT("--debug", OPT_DEBUG);
 
@@ -54,7 +54,7 @@ static void netcli_usage(void)
         "OPTIONS\n"
         "  --debug          Show debug logs.\n"
         "  --help           Show this help.\n"
-        "  --build          Show build information.\n"
+        "  --version        Shows version information.\n"
         "\n"
         "CONTEXTS\n"
         "  network\n"
@@ -75,8 +75,12 @@ static void opt_build(){
     int build = rand();
     ncli_debug("done\n");
 
-    ncli_info("build: %d\n",build);
-    ncli_info("unix timestamp of build: %d\n",UNIX_TIMESTAMP);
+    ncli_info("NetCLI (network command line interface)\n");
+    ncli_info("  build %d\n",build);
+    ncli_info("  release 1.0.0\n");
+    ncli_info("  unix timestamp of build: %d\n",UNIX_TIMESTAMP);
+    ncli_info("  date & time of build: "__DATE__" @ "__TIME__"\n");
+    ncli_info("  built with MSC version %d\n",_MSC_VER);
 }
 
 static inline bool is_option(const char *arg){
@@ -142,7 +146,7 @@ int main(int argc, char *argv[]){
                     opt_debug();
                     break;
 
-                case OPT_BUILD:
+                case OPT_VERSION:
                     opt_build();
                     break;
 
@@ -187,6 +191,10 @@ int main(int argc, char *argv[]){
 
                 case CONTEXT_NONE:
                     // we have options but no context...
+                    // if we have options, don't raise an exception :(
+                    if(have_options)
+                        exit(0);
+
                     ncli_error("an unknown context was specified, triggering an exception...\n");
                     RaiseException(NETCLI_ERR_BAD_CONTEXT,0,0,NULL);
                     break;
