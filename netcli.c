@@ -69,7 +69,7 @@ static void opt_debug(){
     logging_enable_debug();
 }
 
-static void opt_build(){
+static void opt_version(){
     ncli_debug("getting build from unix timestamp...\n");
     srand(UNIX_TIMESTAMP);
     int build = rand();
@@ -81,6 +81,7 @@ static void opt_build(){
     ncli_info("  unix timestamp of build: %d\n",UNIX_TIMESTAMP);
     ncli_info("  date & time of build: "__DATE__" @ "__TIME__"\n");
     ncli_info("  built with MSC version %d\n",_MSC_VER);
+    ncli_info("\n  built in C <3\n");
 }
 
 static inline bool is_option(const char *arg){
@@ -147,7 +148,7 @@ int main(int argc, char *argv[]){
                     break;
 
                 case OPT_VERSION:
-                    opt_build();
+                    opt_version();
                     break;
 
                 case OPT_HELP:
