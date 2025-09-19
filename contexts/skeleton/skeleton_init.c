@@ -55,22 +55,12 @@ int context_skeleton_entry(int argc_start,const char *context_name){
     ncli_info(
         "Skeleton context\n"
         "\n"
-        "This context is created to make it easy for people\n"
-        "to add their own context's as it is mostly just\n"
-        "comments defining how context(s) are created.\n"
-        "\n"
-        "Because of that, context::skeleton serves no purpose.\n"
-    );
-
-    ncli_info(
-        "cool ascii art skeleton i found\n"
-        "\n"
         "      .-. \n"
         "     (o.o) \n"
         "      |=| \n"
         "     __|__ \n"
-        "   //.=|=.\\ \n"
-        "  // .=|=. \\ \n"
+        "   //.=|=.\\\\ \n"
+        "  // .=|=. \\\\ \n"
         "  \\\\ .=|=. // \n"
         "   \\\\(_=_)// \n"
         "    (:| |:) \n"
@@ -79,6 +69,13 @@ int context_skeleton_entry(int argc_start,const char *context_name){
         "     || || \n"
         "     || || \n"
         "    ==' '== \n"
+        "\n"
+        "This context is created to make it easy for people\n"
+        "to add their own context's as it is mostly just\n"
+        "comments defining how context(s) are created.\n"
+        "\n"
+        "Because of that, context::skeleton serves no purpose.\n"
+        "\n"
     );
    
     /*
