@@ -59,7 +59,7 @@ int context_skeleton_entry(int argc_start,const char *context_name){
         "to add their own context's as it is mostly just\n"
         "comments defining how context(s) are created.\n"
         "\n"
-        "Because of that, context::skeleton servers no purpose.\n"
+        "Because of that, context::skeleton serves no purpose.\n"
     );
    
     /*

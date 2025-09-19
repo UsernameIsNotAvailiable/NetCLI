@@ -15,7 +15,7 @@ bool does_arg_exist(const char *arg,int *index){
     for(int i = 1; i < __argc; i++){
         if(strcmp(argv[i],arg) == 0){
             if(index != NULL){
-                index = i;
+                *index = i;
             }
             found = true;
             break;
@@ -30,7 +30,7 @@ bool does_arg_exist_i(const char *arg,int *index){
     for(int i = 1; i < __argc; i++){
         if(strcmpi(argv[i],arg) == 0){
             if(index != NULL){
-                index = i;
+                *index = i;
             }
             found = true;
             break;
