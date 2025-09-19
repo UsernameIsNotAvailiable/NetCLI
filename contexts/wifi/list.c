@@ -5,6 +5,7 @@
 #include <stdbool.h>
 
 #include <inc/log.h>
+#include <inc/arg.h>
 
 #define PINK "\033[38;2;201;42;180m"
 #define PURPLE "\033[38;2;141;69;214m"
@@ -22,7 +23,6 @@ bool __verbose;
 typedef struct{
     bool onlyNames;
     bool noscan;
-    bool verbose;
 }__options;
 
 char *LastErrorAsString()
