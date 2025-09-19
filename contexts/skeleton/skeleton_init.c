@@ -61,6 +61,25 @@ int context_skeleton_entry(int argc_start,const char *context_name){
         "\n"
         "Because of that, context::skeleton serves no purpose.\n"
     );
+
+    ncli_info(
+        "cool ascii art skeleton i found\n"
+        "\n"
+        "      .-. \n"
+        "     (o.o) \n"
+        "      |=| \n"
+        "     __|__ \n"
+        "   //.=|=.\\ \n"
+        "  // .=|=. \\ \n"
+        "  \\\\ .=|=. // \n"
+        "   \\\\(_=_)// \n"
+        "    (:| |:) \n"
+        "     || || \n"
+        "     () () \n"
+        "     || || \n"
+        "     || || \n"
+        "    ==' '== \n"
+    );
    
     /*
 
