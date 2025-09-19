@@ -14,6 +14,8 @@
 #include <contexts/network/init.h>
 #include <contexts/radio/init.h>
 
+#include <contexts/skeleton/init.h>
+
 #define OPT_NONE 0
 #define OPT_VERSION 1
 #define OPT_HELP 2
@@ -23,6 +25,16 @@
 #define CONTEXT_WIFI 1
 #define CONTEXT_NETWORK 2
 #define CONTEXT_RADIO 3
+
+/*
+
+    Skeleton context is not really
+    needed. It's just for people
+    new to this project to easily
+    add their own context.
+
+*/
+#define CONTEXT_SKELETON 4
 
 #define _OPT(optv,ret) \
     if(strcmpi(opt,optv) == 0) \
@@ -42,6 +54,7 @@ int get_context(const char *opt){
     _CONTEXT("wifi",CONTEXT_WIFI);
     _CONTEXT("network",CONTEXT_NETWORK);
     _CONTEXT("radio",CONTEXT_RADIO);
+    _CONTEXT("skeleton",CONTEXT_SKELETON);
 
     return CONTEXT_NONE;
 }
@@ -60,6 +73,7 @@ static void netcli_usage(void)
         "  network\n"
         "  wifi\n"
         "  radio\n"
+        "  skeleton\n"
         ,__argv[0]
     );
 
@@ -190,9 +204,19 @@ int main(int argc, char *argv[]){
                     exit(0);
                     break;
 
+                case CONTEXT_SKELETON:
+                    ncli_debug("switching to context::skeleton...\n");
+                    context_skeleton_entry(i,"skeleton");
+                    exit(0);
+                    break;
+
                 case CONTEXT_NONE:
-                    // we have options but no context...
-                    // if we have options, don't raise an exception :(
+                    /*
+                    
+                        we have options but no context...
+                        if we have options, don't raise an exception :(
+
+                     */
                     if(have_options)
                         exit(0);
 

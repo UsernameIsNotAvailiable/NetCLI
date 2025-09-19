@@ -107,17 +107,6 @@ void bar(int l){
     printf("\n");
 }
 
-/*
-OWNER                 STATE           Local Address            Remote Address
-Discord.exe           ESTABLISHED     192.168.0.102:56516  ==> 162.159.135.234:443
-System                N/A             192.168.124.1:137    ==> N/A
-
-
-PROTOCOL  OWNER       STATE           Local Address            Remote Address
-TCP       Discord.exe ESTABLISHED     192.168.0.102:56516  ==> 162.159.135.234:443
-UDP       System      N/A             192.168.124.1:137    ==> N/A
-*/
-
 void show_tcp_ip4(struct tcp_statistics *stats){
     PMIB_TCPTABLE_OWNER_PID tcp_tbl;
     DWORD size = 0;
@@ -307,8 +296,7 @@ void show_udp_ip4(void){
     DWORD close_wait  =   0;
     DWORD closed      =   0;
 
-    //printf("OWNER                 Local Address\n");
-    //bar(strlen("OWNER                 Local Address") + 5);
+
     for(DWORD i = 0; i < udp_tbl->dwNumEntries; i++){
         MIB_UDPROW_OWNER_PID row = udp_tbl->table[i];
 
