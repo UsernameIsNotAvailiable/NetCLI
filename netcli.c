@@ -1,3 +1,6 @@
+#define _NETCLI_RELEASE "1.0.2"
+
+
 #include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,11 +14,17 @@
 #include <inc/context.h>
 #include <inc/types.h>
 
+/*
+
+    Used to define the initilization
+    functions of context's. So we
+    can find them.
+
+*/
 #include <contexts/wifi/init.h>
 #include <contexts/network/init.h>
 #include <contexts/radio/init.h>
 #include <contexts/general/init.h>
-
 #include <contexts/skeleton/init.h>
 
 #define OPT_NONE 0
@@ -76,6 +85,8 @@ void load_context(int argc_start, const struct netcli_context_t *context){
     }
     ncli_debug("switching to context::%s...\n",context->name);
     context->entry(argc_start,context->name);
+    
+    exit(0);
 }
 
 static void netcli_usage(void)
@@ -112,7 +123,7 @@ static void opt_version(){
 
     ncli_info("NetCLI (network command line interface)\n");
     ncli_info("  build %d\n",build);
-    ncli_info("  release 1.0.0\n");
+    ncli_info("  release "_NETCLI_RELEASE"\n");
     ncli_info("  unix timestamp of build: %d\n",UNIX_TIMESTAMP);
     ncli_info("  date & time of build: "__DATE__" @ "__TIME__"\n");
     ncli_info("  built with MSC version %d\n",_MSC_VER);

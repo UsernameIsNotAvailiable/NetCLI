@@ -4,6 +4,7 @@
         "context_commands.h": "c",
         "stdbool.h": "c",
         "TEST.C": "cpp",
-        "context.h": "c"
+        "context.h": "c",
+        "init.h": "c"
     }
 }

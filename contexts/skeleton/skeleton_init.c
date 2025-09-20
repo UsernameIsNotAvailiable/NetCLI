@@ -86,5 +86,9 @@ int context_skeleton_entry(int argc_start,const char *context_name){
         return value useless.
 
     */
+
+   exit(0);
+
+   // This is now voided by exit(0).
    return 0;
 }
