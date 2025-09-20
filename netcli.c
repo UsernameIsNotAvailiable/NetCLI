@@ -88,6 +88,7 @@ static void netcli_usage(void)
         "  --version        Shows version information.\n"
         "\n"
         "CONTEXTS\n"
+        "  general\n"
         "  network\n"
         "  wifi\n"
         "  radio\n"
