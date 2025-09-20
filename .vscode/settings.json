@@ -5,6 +5,7 @@
         "stdbool.h": "c",
         "TEST.C": "cpp",
         "context.h": "c",
-        "init.h": "c"
+        "init.h": "c",
+        "stdio.h": "c"
     }
 }

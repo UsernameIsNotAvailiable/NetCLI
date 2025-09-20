@@ -30,7 +30,8 @@ int context_skeleton_entry(int argc_start,const char *context_name){
     /*
     
         It's expected that you call this function to tell
-        NetCLI that you are inside of this context.
+        NetCLI that you are inside of this context. If you
+        don't, I will come after you.
 
     */
     context_entry(context_name);
