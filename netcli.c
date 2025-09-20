@@ -24,10 +24,11 @@
 #define OPT_DEBUG 3
 
 static const struct netcli_context_t contexts_list[] = {
-    {"wifi",context_wifi_entry},
-    {"network",context_network_entry},
-    {"radio",context_radio_entry},
-    {"general",context_general_entry},
+    //NAME          ENTRY FUNCTION
+    {"wifi",        context_wifi_entry},
+    {"network",     context_network_entry},
+    {"radio",       context_radio_entry},
+    {"general",     context_general_entry},
 
 
 
@@ -39,7 +40,7 @@ static const struct netcli_context_t contexts_list[] = {
         add their own context.
     
     */
-    {"skeleton",context_skeleton_entry},
+    {"skeleton",    context_skeleton_entry},
 };
 
 #define CONTEXT_COUNT (sizeof(contexts_list)/sizeof(contexts_list[0]))
@@ -210,10 +211,13 @@ int main(int argc, char *argv[]){
     set_exception_handler();
     show_context_list_dbg();
 
-    ncli_debug("we don't have a context yet, setting to none...\n");
-    change_context("none");
+    /*
     
-    // NEW TEST
+        This is for the error handler.
+        So it has an origin context.
+    
+    */
+    change_context("none");
 
     for(int i = 1; i < argc; i++){
         if(get_context_struct(argv[i]) == NULL){
