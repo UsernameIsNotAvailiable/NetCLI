@@ -1,7 +1,7 @@
-#define _NETCLI_RELEASE "1.0.2"
-
 
 #include <Windows.h>
+#include <netcli.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,9 +16,9 @@
 
 /*
 
-    Used to define the initilization
-    functions of context's. So we
-    can find them.
+Used to define the initilization
+functions of context's. So we
+can find them.
 
 */
 #include <contexts/wifi/init.h>
@@ -27,19 +27,25 @@
 #include <contexts/general/init.h>
 #include <contexts/skeleton/init.h>
 
+
 #define OPT_NONE 0
 #define OPT_VERSION 1
 #define OPT_HELP 2
 #define OPT_DEBUG 3
 
 static const struct netcli_context_t contexts_list[] = {
-    //NAME          ENTRY FUNCTION
-    {"wifi",        context_wifi_entry},
-    {"network",     context_network_entry},
-    {"radio",       context_radio_entry},
-    {"general",     context_general_entry},
+    //NAME                  ENTRY FUNCTION
+    {"wifi",                context_wifi_entry},
+    {"network",             context_network_entry},
+    {"radio",               context_radio_entry},
+    {"general",             context_general_entry},
 
 
+
+
+    // Special context(s)
+    // -----------------------------
+    {"no_context",        NULL},
 
     /*
     
@@ -80,10 +86,11 @@ static const struct netcli_context_t *get_context_struct(const char *name) {
 }
 
 void load_context(int argc_start, const struct netcli_context_t *context){
-    if(context == NULL){
+    if(context == NULL || context->entry == NULL || context->name == NULL){
         RaiseException(NETCLI_ERR_NULL_CONTEXT,0,0,NULL);
     }
     ncli_debug("switching to context::%s...\n",context->name);
+
     context->entry(argc_start,context->name);
     
     exit(0);
@@ -116,14 +123,11 @@ static void opt_debug(){
 }
 
 static void opt_version(){
-    ncli_debug("getting build from unix timestamp...\n");
-    srand(UNIX_TIMESTAMP);
-    int build = rand();
     ncli_debug("done\n");
 
     ncli_info("NetCLI (network command line interface)\n");
-    ncli_info("  build %d\n",build);
-    ncli_info("  release "_NETCLI_RELEASE"\n");
+    ncli_info("  build %d\n",_NETCLI_BUILD);
+    ncli_info("  release %s\n",_NETCLI_RELEASE);
     ncli_info("  unix timestamp of build: %d\n",UNIX_TIMESTAMP);
     ncli_info("  date & time of build: "__DATE__" @ "__TIME__"\n");
     ncli_info("  built with MSC version %d\n",_MSC_VER);
@@ -182,6 +186,14 @@ void show_context_list_dbg(void){
 
 
 int main(int argc, char *argv[]){
+    /*
+    
+        This is for the error handler.
+        So it has an origin context.
+    
+    */
+    change_context("no_context"); 
+
     SetConsoleOutputCP(CP_UTF8);
 
     if(argc == 1){
@@ -218,17 +230,9 @@ int main(int argc, char *argv[]){
     }
     
     ncli_debug("do setup...\n");
-    setup_posix_signal_handler();
     set_exception_handler();
+    setup_posix_signal_handler();
     show_context_list_dbg();
-
-    /*
-    
-        This is for the error handler.
-        So it has an origin context.
-    
-    */
-    change_context("none");
 
     for(int i = 1; i < argc; i++){
         if(get_context_struct(argv[i]) == NULL){

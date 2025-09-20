@@ -8,5 +8,4 @@ struct netcli_context_t{
     context_entry_fn entry;
 };
 
-
 #endif

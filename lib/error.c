@@ -3,9 +3,17 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#include <netcli.h>
 #include <inc/error.h>
 #include <inc/log.h>
 #include <inc/context.h>
+
+void show_version_info_on_crash(void){
+    printf("\n");
+    printf("  NetCLI Release: %s, NetCLI Build: %d\n",_NETCLI_RELEASE, _NETCLI_BUILD);
+    printf("  date & time of build: %s %s (unix %d)\n",__DATE__,__TIME__,UNIX_TIMESTAMP);
+    printf("  compiled w/ MSC version: %d\n",_MSC_VER);
+}
 
 LONG WINAPI netcli_exception_filter(LPEXCEPTION_POINTERS excep)
 {
@@ -118,6 +126,7 @@ LONG WINAPI netcli_exception_filter(LPEXCEPTION_POINTERS excep)
 
     // we don't need to continue for a software exception; debug can override this
     if(from_software & !is_debug_enabled()){
+        show_version_info_on_crash();
         printf("\033[0m");
         return EXCEPTION_EXECUTE_FAULT;
     }
@@ -132,6 +141,8 @@ LONG WINAPI netcli_exception_filter(LPEXCEPTION_POINTERS excep)
     printf("    R11: %016llX  R12: %016llX  R13: %016llX \n",c->R11,c->R12,c->R13);
     printf("    R14: %016llX  R15: %016llX  R8:  %016llX \n",c->R14,c->R15,c->R8);
     printf("    R9:  %016llX  RIP: %016llX \n",c->R9,c->Rip);
+
+    show_version_info_on_crash();
 
     printf("\033[0m");
     return EXCEPTION_EXECUTE_FAULT;

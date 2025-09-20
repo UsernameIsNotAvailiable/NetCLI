@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "init.h": "c",
+        "log.h": "c",
+        "compile_time.h": "c"
+    }
+}
