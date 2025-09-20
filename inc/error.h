@@ -4,6 +4,7 @@
 #include <Windows.h>
 
 #define NETCLI_ERR_BAD_CONTEXT 1
+#define NETCLI_ERR_NULL_CONTEXT 2
 
 LONG WINAPI netcli_exception_filter(LPEXCEPTION_POINTERS excep);
 

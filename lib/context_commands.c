@@ -24,5 +24,7 @@ int get_command(const char *cmd){
         _CMD("status",RADIO_COMMANDID_WIFI_STATUS);
         _CMD("reconnect",RADIO_COMMANDID_WIFI_RECONNECT);
 
+    _CMD("hostnames",GENERAL_COMMANDID_HOSTNAMES);
+
     return COMMAND_NONE;
 }

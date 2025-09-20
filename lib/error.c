@@ -38,6 +38,10 @@ LONG WINAPI netcli_exception_filter(LPEXCEPTION_POINTERS excep)
             sprintf(exceptype,"NETCLI_ERR_BAD_CONTEXT");
             break;
 
+        case NETCLI_ERR_NULL_CONTEXT:
+            sprintf(exceptype,"NETCLI_ERR_NULL_CONTEXT");
+            break;
+
         //default
         default:
             sprintf(exceptype,"<error not specified in translation table>");

@@ -9,10 +9,12 @@
 #include <inc/log.h>
 #include <inc/compile_time.h>
 #include <inc/context.h>
+#include <inc/types.h>
 
 #include <contexts/wifi/init.h>
 #include <contexts/network/init.h>
 #include <contexts/radio/init.h>
+#include <contexts/general/init.h>
 
 #include <contexts/skeleton/init.h>
 
@@ -21,20 +23,26 @@
 #define OPT_HELP 2
 #define OPT_DEBUG 3
 
-#define CONTEXT_NONE 0
-#define CONTEXT_WIFI 1
-#define CONTEXT_NETWORK 2
-#define CONTEXT_RADIO 3
+static const struct netcli_context_t contexts_list[] = {
+    {"wifi",context_wifi_entry},
+    {"network",context_network_entry},
+    {"radio",context_radio_entry},
+    {"general",context_general_entry},
 
-/*
 
-    Skeleton context is not really
-    needed. It's just for people
-    new to this project to easily
-    add their own context.
 
-*/
-#define CONTEXT_SKELETON 4
+    /*
+    
+        Skeleton context is not really
+        needed. It's just for people
+        new to this project to easily
+        add their own context.
+    
+    */
+    {"skeleton",context_skeleton_entry},
+};
+
+#define CONTEXT_COUNT (sizeof(contexts_list)/sizeof(contexts_list[0]))
 
 #define _OPT(optv,ret) \
     if(strcmpi(opt,optv) == 0) \
@@ -50,13 +58,23 @@ int get_option(const char *opt){
     return OPT_NONE;
 }
 
-int get_context(const char *opt){
-    _CONTEXT("wifi",CONTEXT_WIFI);
-    _CONTEXT("network",CONTEXT_NETWORK);
-    _CONTEXT("radio",CONTEXT_RADIO);
-    _CONTEXT("skeleton",CONTEXT_SKELETON);
+static const struct netcli_context_t *get_context_struct(const char *name) {
+    //ncli_debug("get_context_struct(%s)\n",name);
+    for (int i = 0; i < CONTEXT_COUNT; i++) {
+        if (strcmp(contexts_list[i].name, name) == 0) {
+            return &contexts_list[i];
+        }
+    }
 
-    return CONTEXT_NONE;
+    return NULL;
+}
+
+void load_context(int argc_start, const struct netcli_context_t *context){
+    if(context == NULL){
+        RaiseException(NETCLI_ERR_NULL_CONTEXT,0,0,NULL);
+    }
+    ncli_debug("switching to context::%s...\n",context->name);
+    context->entry(argc_start,context->name);
 }
 
 static void netcli_usage(void)
@@ -77,6 +95,7 @@ static void netcli_usage(void)
         ,__argv[0]
     );
 
+    exit(0);
 }
 
 static void opt_debug(){
@@ -141,6 +160,13 @@ void set_exception_handler(void){
     ncli_debug("set exception handler to netcli_exception_filter()\n");
 }
 
+void show_context_list_dbg(void){
+    ncli_debug("contexts inside of contexts_list[]:\n");
+    for(int i = 0; i < CONTEXT_COUNT; i++){
+        ncli_debug("\tname=\"%s\", entry=0x%p\n", contexts_list[i].name, contexts_list[i].entry);
+    }
+}
+
 
 int main(int argc, char *argv[]){
     SetConsoleOutputCP(CP_UTF8);
@@ -178,52 +204,27 @@ int main(int argc, char *argv[]){
         }
     }
     
+    ncli_debug("do setup...\n");
     setup_posix_signal_handler();
     set_exception_handler();
+    show_context_list_dbg();
 
     ncli_debug("we don't have a context yet, setting to none...\n");
     change_context("none");
     
+    // NEW TEST
+
     for(int i = 1; i < argc; i++){
-            switch(get_context(argv[i])){
-                case CONTEXT_WIFI:
-                    ncli_debug("switching to context::wifi...\n");
-                    context_wifi_entry(i,"wifi");
-                    exit(0);
-                    break;
-
-                case CONTEXT_NETWORK:
-                    ncli_debug("switching to context::network...\n");
-                    context_network_entry(i,"network");
-                    exit(0);
-                    break;
-
-                case CONTEXT_RADIO:
-                    ncli_debug("switching to context::radio...\n");
-                    context_radio_entry(i,"radio");
-                    exit(0);
-                    break;
-
-                case CONTEXT_SKELETON:
-                    ncli_debug("switching to context::skeleton...\n");
-                    context_skeleton_entry(i,"skeleton");
-                    exit(0);
-                    break;
-
-                case CONTEXT_NONE:
-                    /*
-                    
-                        we have options but no context...
-                        if we have options, don't raise an exception :(
-
-                     */
-                    if(have_options)
-                        exit(0);
-
-                    ncli_error("an unknown context was specified, triggering an exception...\n");
-                    RaiseException(NETCLI_ERR_BAD_CONTEXT,0,0,NULL);
-                    break;
+        if(get_context_struct(argv[i]) == NULL){
+            continue;
         }
+        load_context(i,get_context_struct(argv[i]));
     }
+
+    if(!have_options)
+        RaiseException(NETCLI_ERR_BAD_CONTEXT,0,0,NULL);
     
+    
+    ncli_debug("netcli exiting...\n");
+    return 0;
 }

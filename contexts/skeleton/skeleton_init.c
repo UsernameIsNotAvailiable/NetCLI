@@ -75,7 +75,6 @@ int context_skeleton_entry(int argc_start,const char *context_name){
         "comments defining how context(s) are created.\n"
         "\n"
         "Because of that, context::skeleton serves no purpose.\n"
-        "\n"
     );
    
     /*

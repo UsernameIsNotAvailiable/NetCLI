@@ -61,7 +61,7 @@ int context_network_entry(int argc_start,const char *context_name){
         case COMMAND_NONE:
 
         default:
-            ncli_error("no args specified to context::%s\n",context_name);
+            //ncli_error("no args or unknown args specified to context::%s\n",context_name);
             network_context_usage();
     }
 

@@ -2,6 +2,8 @@
     "files.associations": {
         "log.h": "c",
         "context_commands.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "TEST.C": "cpp",
+        "context.h": "c"
     }
 }
