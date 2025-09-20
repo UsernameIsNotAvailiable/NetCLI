@@ -3,9 +3,9 @@
         "log.h": "c",
         "context_commands.h": "c",
         "stdbool.h": "c",
-        "TEST.C": "cpp",
         "context.h": "c",
         "init.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "excpt.h": "c"
     }
 }
