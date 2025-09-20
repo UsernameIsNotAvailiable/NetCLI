@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <inc/context.h>
 #include <inc/log.h>
 
 static char *current_context = NULL;
