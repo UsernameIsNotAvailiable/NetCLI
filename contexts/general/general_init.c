@@ -13,6 +13,7 @@ void general_context_usage(void){
         "COMMAND            DESCRIPTION                 \n"
         "  hostnames          Tells you the hostname in \n"
         "                     every hostname format.    \n"
+        "  resolve [ip]       Resolves an IP.           \n"
         ,__argv[0]
     );
 
@@ -55,7 +56,7 @@ int context_general_entry(int argc_start,const char *context_name){
             hostnames();
             exit(0);
             break;
-
+            
         case COMMAND_HELP:
             general_context_usage();
             exit(0);

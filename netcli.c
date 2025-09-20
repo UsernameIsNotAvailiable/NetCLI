@@ -16,9 +16,9 @@
 
 /*
 
-Used to define the initilization
-functions of context's. So we
-can find them.
+    Used to define the initilization
+    functions of context's. So we
+    can find them.
 
 */
 #include <contexts/wifi/init.h>

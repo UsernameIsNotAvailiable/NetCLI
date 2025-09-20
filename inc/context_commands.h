@@ -41,7 +41,7 @@ static const struct netcli_command_t commands_list[] = {
         {"status",RADIO_COMMANDID_WIFI_STATUS},
         {"reconnect",RADIO_COMMANDID_WIFI_RECONNECT},
 
-    {"hostnames",GENERAL_COMMANDID_HOSTNAMES}
+    {"hostnames",GENERAL_COMMANDID_HOSTNAMES},
 };
 #define COMMAND_COUNT (sizeof(commands_list)/sizeof(commands_list[0]))
 

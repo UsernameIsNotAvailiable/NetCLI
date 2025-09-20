@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <Psapi.h>
 
+#include <inc/utils.h>
 #include <inc/error.h>
 #include <inc/log.h>
 
@@ -44,7 +45,6 @@
 #define CLR_TCP "\033[38;2;48;79;225m"
 #define CLR_UDP "\033[38;2;255;48;107m"
 
-
 char* translate_inet(DWORD port,DWORD addr){
     char* ret_val = (char*)malloc(256);
 
@@ -55,7 +55,6 @@ char* translate_inet(DWORD port,DWORD addr){
         (BYTE)(addr >> 24),
         ntohs((u_short)port)
     );
-
 
     return ret_val;
 }
@@ -96,16 +95,6 @@ char* get_proc_name(DWORD proc_id){
     return proc_name;
 }
 
-
-#define BOX_HLINE "\xE2\x94\x80"
-#define BOX_VLINE "\xE2\x94\x82"
-
-void bar(int l){
-    for(int i = 0; i < l; i++){
-        printf(BOX_HLINE);
-    }
-    printf("\n");
-}
 
 void show_tcp_ip4(struct tcp_statistics *stats){
     PMIB_TCPTABLE_OWNER_PID tcp_tbl;

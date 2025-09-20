@@ -6,6 +6,7 @@
 
 #include <inc/log.h>
 #include <inc/arg.h>
+#include <inc/utils.h>
 
 #define PINK "\033[38;2;201;42;180m"
 #define PURPLE "\033[38;2;141;69;214m"
@@ -94,9 +95,7 @@ int list(void){
 
     printf("\n");
     printf("SSID%31sPassword%2sConnectable   Signal   Algorithm%10sCipher%10sFlags\n"," "," "," "," ");
-    for(int i = 0; i < 125; i++){
-        printf("\xE2\x80\x95");
-    }
+    bar(125);
     printf("\n");
     int printed = 0;
     if (result == ERROR_SUCCESS) {
