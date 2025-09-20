@@ -40,12 +40,9 @@ static const struct netcli_context_t contexts_list[] = {
     {"radio",               context_radio_entry},
     {"general",             context_general_entry},
 
-
-
-
     // Special context(s)
     // -----------------------------
-    {"no_context",        NULL},
+    {"no_context",          NULL},
 
     /*
     
@@ -57,7 +54,6 @@ static const struct netcli_context_t contexts_list[] = {
     */
     {"skeleton",    context_skeleton_entry},
 };
-
 #define CONTEXT_COUNT (sizeof(contexts_list)/sizeof(contexts_list[0]))
 
 #define _OPT(optv,ret) \

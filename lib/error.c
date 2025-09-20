@@ -121,7 +121,7 @@ LONG WINAPI netcli_exception_filter(LPEXCEPTION_POINTERS excep)
             excep->ExceptionRecord->ExceptionAddress,
             addr
         );
-    } 
+    }
     printf("  the exception was triggered inside context::%s\n",get_current_context());
 
     // we don't need to continue for a software exception; debug can override this

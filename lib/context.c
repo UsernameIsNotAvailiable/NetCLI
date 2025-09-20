@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include <inc/context.h>
+#include <inc/types.h>
 #include <inc/log.h>
 
 static char *current_context = NULL;

@@ -43,7 +43,7 @@ bool is_debug_enabled(void);
 
 #define REMOVED() \
     ncli_warn("***** ATTEMPTED TO CALL A REMOVED FUNCTION *****\n"); \
-    ncli_warn("*****        caller="__FUNCTION__"()\n"); \
+    ncli_warn("*****    "__FUNCTION__"()\n"); \
     ncli_warn("***** ABORTING *****\n"); \
     abort(); \
 
