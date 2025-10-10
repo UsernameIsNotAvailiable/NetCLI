@@ -71,7 +71,6 @@ int get_option(const char *opt){
 }
 
 static const struct netcli_context_t *get_context_struct(const char *name) {
-    //ncli_debug("get_context_struct(%s)\n",name);
     for (int i = 0; i < CONTEXT_COUNT; i++) {
         if (strcmp(contexts_list[i].name, name) == 0) {
             return &contexts_list[i];
@@ -240,7 +239,7 @@ int main(int argc, char *argv[]){
     if(!have_options)
         RaiseException(NETCLI_ERR_BAD_CONTEXT,0,0,NULL);
     
-    
+
     ncli_debug("netcli exiting...\n");
     return 0;
 }
