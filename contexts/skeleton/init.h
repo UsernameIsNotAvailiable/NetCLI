@@ -4,7 +4,7 @@
 /*
 
     Expose the init function that we delcared inside
-    skeleton_init.c so NetCLI can find it.
+    skeleton_init.c so NetCLI (netcli.c) can find it.
 
 */
 int context_skeleton_entry(int argc_start,const char *context_name);
