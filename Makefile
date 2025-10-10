@@ -22,7 +22,7 @@ $(TARGET):
 clean:
 	@echo Cleaning build artifacts...
 	@if exist "$(OBJDIR)" rmdir /S /Q "$(OBJDIR)"
-	@if exist "$(TARGET)" del "$(TARGET)"
+	@rm "$(TARGET)"
 	@echo Done.
 
 .PHONY: all clean
