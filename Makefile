@@ -1,8 +1,7 @@
-# Makefile for MSVC recursive build (clean output + tidy obj folder)
 
 CC = cl
 CFLAGS = /I . /Zc:preprocessor /nologo
-TARGET = netcli.exe
+TARGET = build/netcli.exe
 OBJDIR = build/obj
 
 all: $(TARGET)
@@ -23,7 +22,7 @@ $(TARGET):
 clean:
 	@echo Cleaning build artifacts...
 	@if exist "$(OBJDIR)" rmdir /S /Q "$(OBJDIR)"
-	@del /Q $(TARGET) 2>nul
+	@if exist "$(TARGET)" del "$(TARGET)"
 	@echo Done.
 
 .PHONY: all clean
