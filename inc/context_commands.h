@@ -21,6 +21,7 @@
 #define     RADIO_COMMANDID_WIFI_RECONNECT          0xc5
 
 #define GENERAL_COMMANDID_HOSTNAMES                 0xd1
+#define GENERAL_COMMANDID_STATE                     0xb5
 
 struct netcli_command_t{
     const char *command;
@@ -34,14 +35,15 @@ static const struct netcli_command_t commands_list[] = {
     {"connections",NETWORK_COMMANDID_CONNECTIONS},
     {"protocols",NETWORK_COMMANDID_PROTOCOLS},
     {"routetables",NETWORK_COMMANDID_ROUTETABLES},
-
+    
     {"wifi",RADIO_COMMANDID_WIFI},
-        {"on",RADIO_COMMANDID_WIFI_ON},
-        {"off",RADIO_COMMANDID_WIFI_OFF},
-        {"status",RADIO_COMMANDID_WIFI_STATUS},
-        {"reconnect",RADIO_COMMANDID_WIFI_RECONNECT},
-
+    {"on",RADIO_COMMANDID_WIFI_ON},
+    {"off",RADIO_COMMANDID_WIFI_OFF},
+    {"status",RADIO_COMMANDID_WIFI_STATUS},
+    {"reconnect",RADIO_COMMANDID_WIFI_RECONNECT},
+    
     {"hostnames",GENERAL_COMMANDID_HOSTNAMES},
+    {"state",GENERAL_COMMANDID_STATE},
 };
 #define COMMAND_COUNT (sizeof(commands_list)/sizeof(commands_list[0]))
 

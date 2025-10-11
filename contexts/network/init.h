@@ -62,5 +62,4 @@ int context_network_entry(int argc_start,const char *context_name);
 int adapters(void);
 int connections(void);
 int protocols(void);
-
 #endif

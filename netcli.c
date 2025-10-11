@@ -27,7 +27,6 @@
 #include <contexts/general/init.h>
 #include <contexts/skeleton/init.h>
 
-
 #define OPT_NONE 0
 #define OPT_VERSION 1
 #define OPT_HELP 2
@@ -126,7 +125,7 @@ static void opt_version(){
     ncli_info("  unix timestamp of build: %d\n",UNIX_TIMESTAMP);
     ncli_info("  date & time of build: "__DATE__" @ "__TIME__"\n");
     ncli_info("  built with MSC version %d\n",_MSC_VER);
-    ncli_info("\n  built in C <3\n");
+    ncli_info("\n  built with C <3\n");
 }
 
 static inline bool is_option(const char *arg){
@@ -187,6 +186,8 @@ int main(int argc, char *argv[]){
         So it has an origin context.
     
     */
+    DnsFlushResolverCache(); // this bih undocumented
+
     change_context("no_context"); 
 
     SetConsoleOutputCP(CP_UTF8);

@@ -5,6 +5,8 @@
 #include <inc/context.h>
 #include <inc/context_commands.h>
 
+#include "init.h"
+
 void general_context_usage(void){
 
     ncli_info(
@@ -13,6 +15,8 @@ void general_context_usage(void){
         "COMMAND            DESCRIPTION                 \n"
         "  hostnames          Tells you the hostname in \n"
         "                     every hostname format.    \n"
+        "  state              Tells you the name and flags\n"
+        "                     Of the current connection.\n"
         ,__argv[0]
     );
 
@@ -56,10 +60,16 @@ int context_general_entry(int argc_start,const char *context_name){
             exit(0);
             break;
 
+        case GENERAL_COMMANDID_STATE:
+            state();
+            exit(0);
+            break;
+
         case COMMAND_HELP:
             general_context_usage();
             exit(0);
             break;
+
 
         case COMMAND_NONE:
 
