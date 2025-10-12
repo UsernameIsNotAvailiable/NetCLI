@@ -120,8 +120,6 @@ static void opt_debug(){
 }
 
 static void opt_version(){
-    ncli_debug("done\n");
-
     ncli_info("NetCLI (network command line interface)\n");
     ncli_info("  release %s\n",_NETCLI_RELEASE);
     ncli_info("  build %d\n",_NETCLI_BUILD);

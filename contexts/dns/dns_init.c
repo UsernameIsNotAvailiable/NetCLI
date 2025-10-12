@@ -82,6 +82,7 @@ void flush(void){
         printf(COLOR_OK"done (0x%09X)\n"COLOR_CLEAR,GetLastError());
     }
 
+    ncli_debug("freeing dnsapi.dll...\n");
     FreeLibrary(dnsapi);
     exit(0);
 }
@@ -103,6 +104,11 @@ int context_dns_entry(int argc_start,const char *context_name){
         
         case DNS_COMMANDID_RESOLVE:
             resolve(__argv[argc_start + 2]);
+            exit(0);
+            break;
+
+        case DNS_COMMANID_SERVERS:
+            servers();
             exit(0);
             break;
 

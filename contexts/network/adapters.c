@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <WbemCli.h>
 #include <WbemIdl.h>
+#include <stdint.h>
 
 #include <inc/error.h>
 #include <inc/log.h>
@@ -105,6 +106,55 @@ void helper_print_time(const char* label, SYSTEMTIME st) {
     if(_stricmp(status,STRINGIFY(name)) == 0) return enm \
 
 #define _hlp_status_enum(x) _hlp_status_enum_ex(x,x)
+
+
+struct config_mgr_translate_tbl_t{
+    const char *text;
+    int type;
+};
+
+static const struct config_mgr_translate_tbl_t config_mgr_translate[] = {
+    {"This device is working properly.", OK},                                 
+    {"This device is not configured correctly.", BAD},                        
+    {"Windows cannot load the driver for this device.", BAD},                 
+    {"The driver might be corrupted, or the system is low on memory/resources.", BAD},
+    {"Device is not working properly. One of its drivers or the registry might be corrupted.", BAD},
+    {"The driver requires a resource that Windows cannot manage.", BAD},      
+    {"The boot configuration conflicts with other devices.", BAD},            
+    {"Cannot filter.", BAD},                                                  
+    {"Driver loader for the device is missing.", BAD},                        
+    {"Firmware is incorrectly reporting the resources for this device.", BAD},
+    {"This device cannot start.", BAD},                                        
+    {"This device failed.", BAD},                                              
+    {"Cannot find enough free resources to use.", BAD},                        
+    {"Windows cannot verify the device's resources.", BAD},                    
+    {"Device cannot work properly until the computer is restarted.", BAD},     
+    {"Device is not working properly due to a possible re-enumeration problem.", BAD}, 
+    {"Windows cannot identify all of the resources that the device uses.", BAD}, 
+    {"Device is requesting an unknown resource type.", BAD},                   
+    {"Reinstall the drivers for this device.", BAD},                           
+    {"Failure using the VxD loader.", BAD},                                    
+    {"Registry might be corrupted.", BAD},                                     
+    {"System failure: Windows is removing this device.", BAD},                 
+    {"This device is disabled.", BAD},                                         
+    {"System failure: Try changing the driver or see the hardware documentation.", BAD}, 
+    {"Device is not present, not working properly, or missing drivers.", BAD}, 
+    {"Windows is still setting up this device (first time).", OK},             
+    {"Windows is still setting up this device (second time).", OK},            
+    {"Device does not have a valid log configuration.", BAD},                  
+    {"Device drivers are not installed.", BAD},                                
+    {"Device is disabled. Firmware did not provide the required resources.", BAD}, 
+    {"Device is using an IRQ resource that another device is using.", BAD},    
+    {"Device is not working properly. Windows cannot load the required device drivers.", BAD} 
+};
+
+const struct config_mgr_translate_tbl_t *config_mgr_lookup_error(uint32_t code){
+    static const struct config_mgr_translate_tbl_t unknown = {"Unknown ConfigManagerErrorCode.", BAD};
+    if (code < sizeof(config_mgr_translate)/sizeof(config_mgr_translate[0]))
+        return &config_mgr_translate[code];
+    return &unknown;
+}
+
 
 enum DeviceStatus helper_get_status_as_enum(char *status){
     ndbg("wmi statuts input is \"%s\"\n",*status); // prints "wmi status input is "(null)""
@@ -573,6 +623,24 @@ int adapters(void){
 
             free(buffer);
 
+            _vclear;
+        }
+
+        _vinit;
+        _getpcls(L"ConfigManagerErrorCode"){
+            int code = vtProp.uintVal;
+            char *buffer = malloc(1024);
+
+            const struct config_mgr_translate_tbl_t *info = config_mgr_lookup_error(code);
+
+            sprintf(buffer,"%s%s (%d)"DV_CLR_RESET,
+                info->type == OK ? DV_CLR_OK : DV_CLR_BAD,
+                info->text,
+                code);
+
+            printf(MIDLN"Config manager error code: %s\n",buffer);
+
+            free(buffer);
             _vclear;
         }
 

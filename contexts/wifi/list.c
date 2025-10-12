@@ -96,7 +96,6 @@ int list(void){
     printf("\n");
     printf("SSID%31sPassword%2sConnectable   Signal   Algorithm%10sCipher%10sFlags\n"," "," "," "," ");
     bar(125);
-    printf("\n");
     int printed = 0;
     if (result == ERROR_SUCCESS) {
         for (int i = 0; i < networkList->dwNumberOfItems; i++) {
