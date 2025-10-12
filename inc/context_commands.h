@@ -25,6 +25,7 @@
 
 #define DNS_COMMANDID_RESOLVE                       0xe1
 #define DNS_COMMANDID_LOOKUP                        0xe2
+#define DNS_COMMANDID_FLUSH                         0xe3
 
 
 struct netcli_command_t{
@@ -48,6 +49,7 @@ static const struct netcli_command_t commands_list[] = {
     
     {"resolve",DNS_COMMANDID_RESOLVE},
     {"lookup",DNS_COMMANDID_LOOKUP},
+    {"flush",DNS_COMMANDID_FLUSH},
 
     {"hostnames",GENERAL_COMMANDID_HOSTNAMES},
     {"state",GENERAL_COMMANDID_STATE},

@@ -107,6 +107,7 @@ static void netcli_usage(void)
         "  network\n"
         "  wifi\n"
         "  radio\n"
+        "  dns\n"
         "  skeleton\n"
         ,__argv[0]
     );
@@ -189,7 +190,7 @@ int main(int argc, char *argv[]){
     
     */
    change_context("no_context");
-   
+
    WSADATA wsa;
    WSAStartup(MAKEWORD(2,2), &wsa);
 
