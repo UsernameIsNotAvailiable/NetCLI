@@ -678,6 +678,7 @@ int adapters(void){
             if_index = vtProp.uintVal;
         }
 
+        ndbg("showing rx and tx...\n");
         show_rx_and_tx(if_index);
 
         ndbg("showing Win32_NetworkAdapterConfiguration...\n");
