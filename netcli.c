@@ -188,9 +188,10 @@ int main(int argc, char *argv[]){
         So it has an origin context.
     
     */
-    DnsFlushResolverCache(); // this bih undocumented
-
-    change_context("no_context"); 
+   change_context("no_context");
+   
+   WSADATA wsa;
+   WSAStartup(MAKEWORD(2,2), &wsa);
 
     SetConsoleOutputCP(CP_UTF8);
 

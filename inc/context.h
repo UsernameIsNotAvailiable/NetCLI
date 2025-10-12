@@ -14,9 +14,9 @@
     } while(0)
 
 
-static _Bool allocate_context(const char *new_context);
 void change_context(const char *new_context);
 const char *get_current_context(void);
 void free_context(void);
+static BOOL allocate_context(const char *new_context);
 
 #endif // NETCLI_CONTEXT

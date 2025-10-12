@@ -1,4 +1,3 @@
-#include <Windows.h>
 #include <WS2tcpip.h>
 #include <string.h>
 
@@ -63,14 +62,14 @@ int context_dns_entry(int argc_start,const char *context_name){
     switch(get_command(__argv[argc_start + 1])){
         
         case DNS_COMMANDID_LOOKUP:
-        lookup(__argv[argc_start + 1]);
-        exit(0);
-        break;
+            lookup(__argv[argc_start + 2]);
+            exit(0);
+            break;
         
         case DNS_COMMANDID_RESOLVE:
-        resolve(__argv[argc_start + 2]);
-        exit(0);
-        break;
+            resolve(__argv[argc_start + 2]);
+            exit(0);
+            break;
 
         case COMMAND_HELP:
 
