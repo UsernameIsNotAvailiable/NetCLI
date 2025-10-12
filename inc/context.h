@@ -14,7 +14,7 @@
     } while(0)
 
 
-static BOOL allocate_context(const char *new_context);
+static _Bool allocate_context(const char *new_context);
 void change_context(const char *new_context);
 const char *get_current_context(void);
 void free_context(void);

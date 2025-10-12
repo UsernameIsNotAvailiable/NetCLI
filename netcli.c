@@ -25,6 +25,7 @@
 #include <contexts/network/init.h>
 #include <contexts/radio/init.h>
 #include <contexts/general/init.h>
+#include <contexts/dns/init.h>
 #include <contexts/skeleton/init.h>
 
 #define OPT_NONE 0
@@ -37,6 +38,7 @@ static const struct netcli_context_t contexts_list[] = {
     {"wifi",                context_wifi_entry},
     {"network",             context_network_entry},
     {"radio",               context_radio_entry},
+    {"dns",                 context_dns_entry},
     {"general",             context_general_entry},
 
     // Special context(s)

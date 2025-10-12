@@ -5,6 +5,8 @@
         "compile_time.h": "c",
         "context_commands.h": "c",
         "windows.h": "c",
-        "windns.h": "c"
+        "windns.h": "c",
+        "context.h": "c",
+        "resolver.h": "c"
     }
 }

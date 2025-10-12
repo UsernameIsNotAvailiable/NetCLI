@@ -21,7 +21,11 @@
 #define     RADIO_COMMANDID_WIFI_RECONNECT          0xc5
 
 #define GENERAL_COMMANDID_HOSTNAMES                 0xd1
-#define GENERAL_COMMANDID_STATE                     0xb5
+#define GENERAL_COMMANDID_STATE                     0xd2
+
+#define DNS_COMMANDID_RESOLVE                       0xe1
+#define DNS_COMMANDID_LOOKUP                        0xe2
+
 
 struct netcli_command_t{
     const char *command;
@@ -42,6 +46,9 @@ static const struct netcli_command_t commands_list[] = {
     {"status",RADIO_COMMANDID_WIFI_STATUS},
     {"reconnect",RADIO_COMMANDID_WIFI_RECONNECT},
     
+    {"resolve",DNS_COMMANDID_RESOLVE},
+    {"lookup",DNS_COMMANDID_LOOKUP},
+
     {"hostnames",GENERAL_COMMANDID_HOSTNAMES},
     {"state",GENERAL_COMMANDID_STATE},
 };
