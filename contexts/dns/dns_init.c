@@ -74,7 +74,7 @@ void flush(void){
         FreeLibrary(dnsapi);
         exit(2);
     }
-    printf("Attempting to the DNS resolver cache... ");
+    printf("Attempting to flush the DNS resolver cache... ");
     BOOL result = DnsFlushResolverCache();
     if(result){
         printf(COLOR_OK"done"COLOR_CLEAR"\n");

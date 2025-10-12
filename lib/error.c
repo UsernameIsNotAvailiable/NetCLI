@@ -10,7 +10,8 @@
 
 void show_version_info_on_crash(void){
     printf("\n");
-    printf("  NetCLI Release: %s, NetCLI Build: %d\n",_NETCLI_RELEASE, _NETCLI_BUILD);
+    printf("  NetCLI Release: %s, NetCLI Build: %d,\n",_NETCLI_RELEASE, _NETCLI_BUILD);
+    printf("  NetCLI Patch: %d, NetCLI Hotfix: %d\n",_NETCLI_PATCH,_NETCLI_HOTFIX);
     printf("  date & time of build: %s %s (unix %d)\n",__DATE__,__TIME__,UNIX_TIMESTAMP);
     printf("  compiled w/ MSC version: %d\n",_MSC_VER);
 }
