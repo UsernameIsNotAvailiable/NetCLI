@@ -8,6 +8,8 @@
         "windns.h": "c",
         "context.h": "c",
         "resolver.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "winsock2.h": "c",
+        "netioapi.h": "c"
     }
 }
