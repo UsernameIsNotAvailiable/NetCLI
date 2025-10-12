@@ -108,7 +108,8 @@ int context_dns_entry(int argc_start,const char *context_name){
             break;
 
         case DNS_COMMANID_SERVERS:
-            servers();
+            ncli_error("deprecated\n");
+            //servers();
             exit(0);
             break;
 

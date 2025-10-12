@@ -1,4 +1,5 @@
 #include <WinSock2.h>
+#include <WS2tcpip.h>
 #include <iphlpapi.h>
 #include <stdio.h>
 #include <WbemCli.h>
@@ -433,47 +434,29 @@ void show_config(IWbemServices* pSvc,int dev_id){
     _release(pEnumCfg);
 }
 
-void show_rx_and_tx(uint32_t if_index){
-    PIP_ADAPTER_ADDRESSES addresses = NULL;
-    ULONG out_len = 15000;
-    DWORD ret = 0;
+void show_rx_and_tx(uint32_t if_index) {
+    PMIB_IF_TABLE2 pIfTable = NULL;
+    ULONG result = GetIfTable2(&pIfTable);
 
-    addresses = (IP_ADAPTER_ADDRESSES *)malloc(out_len);
-    if(addresses == NULL){
-        ncli_error("failed to allocate memory for IP_ADAPTER_ADDRESSES...\n");
+    if (result != NO_ERROR) {
+        ncli_error("GetIfTable2 failed with error: %lu\n", result);
         return;
     }
 
-    ret = GetAdaptersAddresses(AF_UNSPEC, GAA_FLAG_INCLUDE_PREFIX, NULL, addresses, &out_len);
+    for (int i = 0; i < pIfTable->NumEntries; i++) {
+        MIB_IF_ROW2 ifRow = pIfTable->Table[i];
 
-    if(ret == ERROR_BUFFER_OVERFLOW){
-        free(adapters);
-        addresses = (IP_ADAPTER_ADDRESSES *)malloc(out_len);
-        if(addresses == NULL){
-            ncli_error("failed to allocate memory for IP_ADAPTER_ADDRESSES after overflow...\n");
-            return;
+        if (ifRow.InterfaceIndex == if_index) {
+            // InOctets is the cumulative bytes received (Rx)
+            printf(MIDLN"RX: %llu bytes\n", ifRow.InOctets);
+            // OutOctets is the cumulative bytes transmitted (Tx)
+            printf(MIDLN"TX: %llu bytes\n", ifRow.OutOctets);
+            break;
         }
-
-        ret = GetAdaptersAddresses(AF_UNSPEC, GAA_FLAG_INCLUDE_PREFIX, NULL, addresses, &out_len);
     }
 
-    if(ret == NO_ERROR){
-        PIP_ADAPTER_ADDRESSES adapter = addresses;
-        while(adapter){
-            if(adapter->IfIndex == if_index){
-                printf(MIDLN"RX: %.04f kb/s \n",adapter->ReceiveLinkSpeed * 1000);
-                printf(MIDLN"TX: %.04f kb/s \n",adapter->TransmitLinkSpeed * 1000);
-
-                break;
-            }
-            adapter = adapter->Next;
-        }
-    } else {
-        ncli_error("GetAdaptersAddresses failed: 0x%09X\n",GetLastError());
-    }
-
-    if(addresses){
-        free(addresses);
+    if (pIfTable != NULL) {
+        FreeMibTable(pIfTable);
     }
 }
 
@@ -565,7 +548,6 @@ int adapters(void){
 
         VARIANT vtProp;
         int dev_id = -1;
-        uint32_t if_index;
         
         _vinit;ndbg("found an entity!\n");
         _getpcls(L"Name"){
