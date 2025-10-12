@@ -1,3 +1,4 @@
+# cause im lazy lol
 
 CC = cl
 CFLAGS = /I . /Zc:preprocessor /nologo
