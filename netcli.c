@@ -123,7 +123,7 @@ static void opt_version(){
     ncli_info("NetCLI (network command line interface)\n");
     ncli_info("  release %s\n",_NETCLI_RELEASE);
     ncli_info("  build %d\n",_NETCLI_BUILD);
-    ncli_info("  hotfix %d, patch %d",_NETCLI_HOTFIX,_NETCLI_PATCH);
+    ncli_info("  hotfix %d, patch %d\n",_NETCLI_HOTFIX,_NETCLI_PATCH);
     ncli_info("  unix timestamp of build: %d\n",UNIX_TIMESTAMP);
     ncli_info("  date & time of build: "__DATE__" @ "__TIME__"\n");
     ncli_info("  built with MSC version %d\n",_MSC_VER);
