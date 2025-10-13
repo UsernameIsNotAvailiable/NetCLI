@@ -46,7 +46,7 @@ void lookup(const char *ip){
 
 void dns_context_usage(void){
     ncli_info(
-        "usage %s dns { command | help }\n"
+        "usage: %s dns { command | help }\n"
         "\n"
         "COMMAND            DESCRIPTION            \n"
         "  resolve            Hostname to IP       \n"
