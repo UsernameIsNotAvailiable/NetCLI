@@ -661,7 +661,7 @@ int adapters(void){
 
             const struct config_mgr_translate_tbl_t *info = config_mgr_lookup_error(code);
 
-            sprintf(buffer,"%s%s (%d)"DV_CLR_RESET,
+            sprintf(buffer,"%s%s"DV_CLR_RESET" (%d)",
                 info->type == OK ? DV_CLR_OK : DV_CLR_BAD,
                 info->text,
                 code);

@@ -118,8 +118,7 @@ int context_dns_entry(int argc_start,const char *context_name){
             exit(0);
             break;
 
-        case COMMAND_HELP:
-
+        case COMMAND_HELP:        
         default:
             dns_context_usage();
             exit(0);
