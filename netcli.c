@@ -128,7 +128,7 @@ static void opt_version(){
     ncli_info("  date & time of build: "__DATE__" @ "__TIME__"\n");
     ncli_info("  built with MSC version %d\n",_MSC_VER);
     ncli_info("\n");
-    ncli_info("  built with and only C\n");
+    ncli_info("  built with and only C <3\n");
     ncli_info("  contribute at https://github.com/UsernameIsNotAvailiable/NetCLI\n");
 }
 
@@ -198,7 +198,7 @@ int main(int argc, char *argv[]){
     SetConsoleOutputCP(CP_UTF8);
 
     if(argc == 1){
-        ncli_info("We got no arguments, don't know what to do! Showing usage...\n");
+        ncli_info("We have no arguments, don't know what to do! Showing usage...\n");
         printf("\n");
         netcli_usage();
     }
