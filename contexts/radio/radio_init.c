@@ -239,7 +239,7 @@ int context_radio_entry(int argc_start,const char *context_name){
         
         default:
             ncli_error("no args specified to context::%s\n",context_name);
-            wifi_context_usage();
+            radio_context_usage();
     }
 
     return 0;
