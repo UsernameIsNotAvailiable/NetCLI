@@ -128,7 +128,7 @@ static void opt_version(){
     ncli_info("  date & time of build: "__DATE__" @ "__TIME__"\n");
     ncli_info("  built with MSC version %d\n",_MSC_VER);
     ncli_info("\n");
-    ncli_info("  built with C <3\n");
+    ncli_info("  built with and only C\n");
     ncli_info("  contribute at https://github.com/UsernameIsNotAvailiable/NetCLI\n");
 }
 
