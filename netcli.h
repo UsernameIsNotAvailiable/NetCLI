@@ -1,6 +1,7 @@
 #ifndef __NETCLI
 #define __NETCLI
 #include <inc/compile_time.h>
+#include <stdbool.h>
 
 static inline __impl_netcli_build_getter(void){
     srand(UNIX_TIMESTAMP);

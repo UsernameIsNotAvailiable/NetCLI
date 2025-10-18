@@ -16,9 +16,9 @@
 
 /*
 
-    Used to define the initilization
-    functions of context's. So we
-    can find them.
+Used to define the initilization
+functions of context's. So we
+can find them.
 
 */
 #include <contexts/wifi/init.h>
@@ -40,17 +40,17 @@ static const struct netcli_context_t contexts_list[] = {
     {"radio",               context_radio_entry},
     {"dns",                 context_dns_entry},
     {"general",             context_general_entry},
-
+    
     // Special context(s)
     // -----------------------------
     {"no_context",          NULL},
-
+    
     /*
     
-        Skeleton context is not really
-        needed. It's just for people
-        new to this project to easily
-        add their own context.
+    Skeleton context is not really
+    needed. It's just for people
+    new to this project to easily
+    add their own context.
     
     */
     {"skeleton",    context_skeleton_entry},
@@ -58,8 +58,8 @@ static const struct netcli_context_t contexts_list[] = {
 #define CONTEXT_COUNT (sizeof(contexts_list)/sizeof(contexts_list[0]))
 
 #define _OPT(optv,ret) \
-    if(strcmpi(opt,optv) == 0) \
-        return ret \
+if(strcmpi(opt,optv) == 0) \
+return ret \
 
 #define _CONTEXT _OPT
 
@@ -67,7 +67,7 @@ int get_option(const char *opt){
     _OPT("--version", OPT_VERSION);
     _OPT("--help",  OPT_HELP);
     _OPT("--debug", OPT_DEBUG);
-
+    
     return OPT_NONE;
 }
 
@@ -77,7 +77,7 @@ static const struct netcli_context_t *get_context_struct(const char *name) {
             return &contexts_list[i];
         }
     }
-
+    
     return NULL;
 }
 
@@ -86,7 +86,7 @@ void load_context(int argc_start, const struct netcli_context_t *context){
         RaiseException(NETCLI_ERR_NULL_CONTEXT,0,0,NULL);
     }
     ncli_debug("switching to context::%s...\n",context->name);
-
+    
     context->entry(argc_start,context->name);
     
     exit(0);
@@ -111,7 +111,7 @@ static void netcli_usage(void)
         "  skeleton\n"
         ,__argv[0]
     );
-
+    
     exit(0);
 }
 
@@ -139,35 +139,35 @@ static inline bool is_option(const char *arg){
 void posix_signal_handler(int sig){
     switch(sig){
         case SIGINT:
-            ncli_info("got SIGINT... terminating program\n");
-            exit(0);
-            break;
-
+        ncli_info("got SIGINT... terminating program\n");
+        exit(0);
+        break;
+        
         case SIGSEGV:
-            ncli_error("got SIGSEGV... terminating program\n");
-            exit(0);
-            break;
-
+        ncli_error("got SIGSEGV... terminating program\n");
+        exit(0);
+        break;
+        
         case SIGABRT:
-            ncli_info("got SIGABRT... terminating program\n");
-            exit(0);
-            break;
-
+        ncli_info("got SIGABRT... terminating program\n");
+        exit(0);
+        break;
+        
         default:
-            ncli_error("unable to handle signal: %d... ignoring\n",sig);
-            break;
+        ncli_error("unable to handle signal: %d... ignoring\n",sig);
+        break;
     }
 }
 
 #define _set_sig_handler(sig) \
-    signal(sig, posix_signal_handler); \
-    ncli_debug("set handler for %s...\n",#sig) 
+signal(sig, posix_signal_handler); \
+ncli_debug("set handler for %s...\n",#sig) 
 
 void setup_posix_signal_handler(void){
     _set_sig_handler(SIGSEGV);
     _set_sig_handler(SIGINT);
     _set_sig_handler(SIGABRT);
-
+    
 }
 
 void set_exception_handler(void){
@@ -186,46 +186,46 @@ void show_context_list_dbg(void){
 int main(int argc, char *argv[]){
     /*
     
-        This is for the error handler.
-        So it has an origin context.
+    This is for the error handler.
+    So it has an origin context.
     
     */
-   change_context("no_context");
-
-   WSADATA wsa;
-   WSAStartup(MAKEWORD(2,2), &wsa);
-
+    change_context("no_context");
+    
+    WSADATA wsa;
+    WSAStartup(MAKEWORD(2,2), &wsa);
+    
     SetConsoleOutputCP(CP_UTF8);
-
+    
     if(argc == 1){
         ncli_info("We have no arguments, don't know what to do! Showing usage...\n");
         printf("\n");
         netcli_usage();
     }
     BOOL have_options = false;
-
+    
     // we should parse options first...
     for(int i = 1; i < argc; i++){
         if(is_option(argv[i])) {
             have_options = true;
             switch(get_option(argv[i])){
                 case OPT_DEBUG:
-                    opt_debug();
-                    break;
-
+                opt_debug();
+                break;
+                
                 case OPT_VERSION:
-                    opt_version();
-                    break;
-
+                opt_version();
+                break;
+                
                 case OPT_HELP:
-                    netcli_usage();
-                    break;
-
+                netcli_usage();
+                break;
+                
                 case OPT_NONE:
-
+                
                 default:
-                    ncli_error("invalid option!");
-                    break;
+                ncli_error("invalid option!");
+                break;
             }
         }
     }
@@ -234,18 +234,18 @@ int main(int argc, char *argv[]){
     set_exception_handler();
     setup_posix_signal_handler();
     show_context_list_dbg();
-
+    
     for(int i = 1; i < argc; i++){
         if(get_context_struct(argv[i]) == NULL){
             continue;
         }
         load_context(i,get_context_struct(argv[i]));
     }
-
-    if(!have_options)
-        RaiseException(NETCLI_ERR_BAD_CONTEXT,0,0,NULL);
     
-
+    if(!have_options)
+    RaiseException(NETCLI_ERR_BAD_CONTEXT,0,0,NULL);
+    
+    
     ncli_debug("netcli exiting...\n");
     return 0;
 }
