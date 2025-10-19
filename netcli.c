@@ -1,3 +1,11 @@
+/*
+NetCLI
+
+    Welcome to the NetCLI project! This is the main
+    file and contains the entry and initilization code
+    and does stuff for switching contexts. 
+
+*/
 
 #include <Windows.h>
 #include <netcli.h>
@@ -190,7 +198,7 @@ int main(int argc, char *argv[]){
 
     This is for the error handler.
     So it has an origin context.
-    
+
     */
     change_context("no_context");
     
