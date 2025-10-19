@@ -187,8 +187,10 @@ int main(int argc, char *argv[]){
     WSAStartup(MAKEWORD(2,2), &wsa);
 
     /*
-        This is for the error handler.
-        So it has an origin context.
+
+    This is for the error handler.
+    So it has an origin context.
+    
     */
     change_context("no_context");
     
