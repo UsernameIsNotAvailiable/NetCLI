@@ -181,18 +181,18 @@ void show_context_list_dbg(void){
 
 
 int main(int argc, char *argv[]){
+    // early init
+    SetConsoleOutputCP(CP_UTF8);
+    WSADATA wsa;
+    WSAStartup(MAKEWORD(2,2), &wsa);
+
     /*
-    
-    This is for the error handler.
-    So it has an origin context.
-    
+        This is for the error handler.
+        So it has an origin context.
     */
     change_context("no_context");
     
-    WSADATA wsa;
-    WSAStartup(MAKEWORD(2,2), &wsa);
     
-    SetConsoleOutputCP(CP_UTF8);
     
     if(argc == 1){
         ncli_info("We have no arguments, don't know what to do! Showing usage...\n");
