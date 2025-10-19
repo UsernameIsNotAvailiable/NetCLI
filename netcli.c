@@ -72,19 +72,17 @@ int get_option(const char *opt){
 }
 
 static const struct netcli_context_t *get_context_struct(const char *name) {
-    for (int i = 0; i < CONTEXT_COUNT; i++) {
-        if (strcmp(contexts_list[i].name, name) == 0) {
+    for (int i = 0; i < CONTEXT_COUNT; i++)
+        if (strcmp(contexts_list[i].name, name) == 0)
             return &contexts_list[i];
-        }
-    }
     
     return NULL;
 }
 
 void load_context(int argc_start, const struct netcli_context_t *context){
-    if(context == NULL || context->entry == NULL || context->name == NULL){
+    if(context == NULL || context->entry == NULL || context->name == NULL)
         RaiseException(NETCLI_ERR_NULL_CONTEXT,0,0,NULL);
-    }
+        
     ncli_debug("switching to context::%s...\n",context->name);
     
     context->entry(argc_start,context->name);
@@ -139,23 +137,23 @@ static inline bool is_option(const char *arg){
 void posix_signal_handler(int sig){
     switch(sig){
         case SIGINT:
-        ncli_info("got SIGINT... terminating program\n");
-        exit(0);
-        break;
+            ncli_info("got SIGINT... terminating program\n");
+            exit(0);
+            break;
         
         case SIGSEGV:
-        ncli_error("got SIGSEGV... terminating program\n");
-        exit(0);
-        break;
+            ncli_error("got SIGSEGV... terminating program\n");
+            exit(0);
+            break;
         
         case SIGABRT:
-        ncli_info("got SIGABRT... terminating program\n");
-        exit(0);
-        break;
+            ncli_info("got SIGABRT... terminating program\n");
+            exit(0);
+            break;
         
         default:
-        ncli_error("unable to handle signal: %d... ignoring\n",sig);
-        break;
+            ncli_error("unable to handle signal: %d... ignoring\n",sig);
+            break;
     }
 }
 
@@ -177,9 +175,8 @@ void set_exception_handler(void){
 
 void show_context_list_dbg(void){
     ncli_debug("contexts inside of contexts_list[]:\n");
-    for(int i = 0; i < CONTEXT_COUNT; i++){
+    for(int i = 0; i < CONTEXT_COUNT; i++)
         ncli_debug("\tname=\"%s\", entry=0x%p\n", contexts_list[i].name, contexts_list[i].entry);
-    }
 }
 
 
@@ -210,22 +207,21 @@ int main(int argc, char *argv[]){
             have_options = true;
             switch(get_option(argv[i])){
                 case OPT_DEBUG:
-                opt_debug();
-                break;
+                    opt_debug();
+                    break;
                 
                 case OPT_VERSION:
-                opt_version();
-                break;
+                    opt_version();
+                    break;
                 
                 case OPT_HELP:
-                netcli_usage();
-                break;
+                    netcli_usage();
+                    break;
                 
                 case OPT_NONE:
-                
                 default:
-                ncli_error("invalid option!");
-                break;
+                    ncli_error("invalid option!");
+                    break;
             }
         }
     }
@@ -236,14 +232,14 @@ int main(int argc, char *argv[]){
     show_context_list_dbg();
     
     for(int i = 1; i < argc; i++){
-        if(get_context_struct(argv[i]) == NULL){
+        if(get_context_struct(argv[i]) == NULL)
             continue;
-        }
+        
         load_context(i,get_context_struct(argv[i]));
     }
     
     if(!have_options)
-    RaiseException(NETCLI_ERR_BAD_CONTEXT,0,0,NULL);
+        RaiseException(NETCLI_ERR_BAD_CONTEXT,0,0,NULL);
     
     
     ncli_debug("netcli exiting...\n");
