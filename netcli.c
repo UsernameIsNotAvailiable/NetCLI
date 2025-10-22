@@ -10,6 +10,7 @@ NetCLI
 #include <Windows.h>
 #include <netcli.h>
 
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -187,6 +188,7 @@ void show_context_list_dbg(void){
         ncli_debug("\tname=\"%s\", entry=0x%p\n", contexts_list[i].name, contexts_list[i].entry);
 }
 
+#pragma comment(lib,"User32.lib")
 
 int main(int argc, char *argv[]){
     // early init

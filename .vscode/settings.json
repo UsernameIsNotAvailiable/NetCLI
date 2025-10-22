@@ -10,6 +10,7 @@
         "resolver.h": "c",
         "stdbool.h": "c",
         "winsock2.h": "c",
-        "corecrt.h": "c"
+        "corecrt.h": "c",
+        "assert.h": "c"
     }
 }
