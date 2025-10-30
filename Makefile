@@ -16,6 +16,7 @@ $(TARGET):
 	@echo Compiling...
 	@for /F "usebackq delims=" %%f in (`type sources.tmp`) do @$(CC) $(CFLAGS) /Fo"$(OBJDIR)\%%~nf.obj" -c %%f
 	@echo Linking...
+	@echo "$(CC) $(CFLAGS) $(OBJDIR)\*.obj /Fe$(TARGET)"
 	@$(CC) $(CFLAGS) $(OBJDIR)\*.obj /Fe$(TARGET)
 	@del sources.tmp
 	@echo Build complete: $(TARGET)
@@ -23,6 +24,7 @@ $(TARGET):
 clean:
 	@echo Cleaning build artifacts...
 	@if exist "$(OBJDIR)" rmdir /S /Q "$(OBJDIR)"
+	@echo rm $(TARGET)
 	@rm "$(TARGET)"
 	@echo Done.
 
