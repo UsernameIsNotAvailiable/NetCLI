@@ -190,26 +190,45 @@ void show_context_list_dbg(void){
 
 #pragma comment(lib,"User32.lib")
 
+UINT original_codepage;
+void netcli_atexit_cleanup(void){
+    ncli_debug("cleanup begin\n");
+    change_context("no_context");
+
+    ncli_debug("do WSA cleanup...\n");
+    WSACleanup();
+    ncli_debug("done\n");
+
+    ncli_debug("restore console output CP...\n");
+    SetConsoleOutputCP(original_codepage);
+    ncli_debug("done\n");
+    
+    ncli_debug("NetCLI cleanup done. Goodbye!\n");
+}
+
 int main(int argc, char *argv[]){
     // early init
+    original_codepage = GetConsoleOutputCP();
     SetConsoleOutputCP(CP_UTF8);
     WSADATA wsa;
     WSAStartup(MAKEWORD(2,2), &wsa);
+    atexit(netcli_atexit_cleanup);
+    
 
     /*
-
+    
     This is for the error handler.
     So it has an origin context.
-
+    
     */
-    change_context("no_context");
-    
-    
-    
-    if(argc == 1){
-        ncli_info("We have no arguments, don't know what to do! Showing usage...\n");
-        printf("\n");
-        netcli_usage();
+   change_context("no_context");
+   
+   
+   
+   if(argc == 1){
+       ncli_info("We have no arguments, don't know what to do! Showing usage...\n");
+       printf("\n");
+       netcli_usage();
     }
     BOOL have_options = false;
     
@@ -219,16 +238,16 @@ int main(int argc, char *argv[]){
             have_options = true;
             switch(get_option(argv[i])){
                 case OPT_DEBUG:
-                    opt_debug();
-                    break;
+                opt_debug();
+                break;
                 
                 case OPT_VERSION:
-                    opt_version();
-                    break;
+                opt_version();
+                break;
                 
                 case OPT_HELP:
-                    netcli_usage();
-                    break;
+                netcli_usage();
+                break;
                 
                 case OPT_NONE:
                 default:
@@ -255,5 +274,6 @@ int main(int argc, char *argv[]){
     
     
     ncli_debug("netcli exiting...\n");
+    
     return 0;
 }
